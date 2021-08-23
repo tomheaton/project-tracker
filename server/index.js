@@ -7,7 +7,7 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(express.json);
+app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true}));
 
 // Database setup
@@ -19,28 +19,78 @@ const DATABASE = mysql.createConnection({
 });
 
 app.get("/", (req, res) => {
-  console.log("hello world");
+  console.log("GET -> hello world");
   res.send({ message: "hello world" });
 })
 
 app.get("/projects", (req, res) => {
-  console.log("projects");
+  console.log("GET -> projects");
 
   DATABASE.query("SELECT * FROM projects;", [], (error, result) => {
     if (error) {
       return res.status(500).send({ error: error })
     }
     if (result.length > 0) {
-      console.log("data: ", result[0]);
-      return res.status(200).send({ message: "projects -> results found", data: result[0]});
+      return res.status(200).send({ message: `projects -> ${result.length} projects found`, data: result});
     } else {
-      return res.status(200).send({ message: "projects -> no results found" });
+      return res.status(200).send({ message: "projects -> no projects found" });
     }
   });
+})
 
-  res.send({ message: "projects" });
+app.get("/projects/:id", (req, res) => {
+  console.log("GET -> projects/:id");
+  const { id } = req.params;
+
+  DATABASE.query("SELECT * FROM projects WHERE project_id = ?;", [id], (error, result) => {
+    if (error) {
+      return res.status(500).send({ error: error })
+    }
+    if (result.length > 0) {
+      return res.status(200).send({ message: `projects -> project found with id: ${id}`, data: result});
+    } else {
+      return res.status(200).send({ message: `projects -> no project found with id: ${id}` });
+    }
+  });
+})
+
+app.post("/projects", (req, res) => {
+  console.log("POST -> projects");
+  const { name } = req.body;
+
+  DATABASE.query("INSERT INTO projects (name) VALUES (?);", [name], (error, result) => {
+    if (error) {
+      return res.status(500).send({ error: error })
+    }
+    return res.status(200).send({ message: `projects -> project created` });
+  });
+})
+
+app.put("/projects/:id", (req, res) => {
+  console.log("PUT -> projects/:id");
+  const { id } = req.params;
+  const { name } = req.body;
+
+  DATABASE.query("UPDATE projects SET name = ?, update_time = NOW() WHERE project_id = ?;", [name, id], (error, result) => {
+    if (error) {
+      return res.status(500).send({ error: error })
+    }
+    return res.status(200).send({ message: `projects -> project updated` });
+  });
+})
+
+app.delete("/projects/:id", (req, res) => {
+  console.log("DELETE -> projects/:id");
+  const { id } = req.params;
+
+  DATABASE.query("DELETE FROM projects WHERE project_id = ?;", [id], (error, result) => {
+    if (error) {
+      return res.status(500).send({ error: error })
+    }
+    return res.status(200).send({ message: `projects -> project deleted` });
+  });
 })
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}.\n`)
-})
+});
