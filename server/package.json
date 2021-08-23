@@ -4,6 +4,8 @@
   "description": "",
   "author": "Thomas Heaton",
   "license": "MIT",
+  "private": true,
+  "keywords": [],
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
