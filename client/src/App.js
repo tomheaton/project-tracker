@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import './styles/App.css';
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Users from "./pages/Users";
-import Logo from "./images/logo.svg";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
+import Project from "./pages/Project";
 
 const App = () => {
 
@@ -52,6 +52,7 @@ const App = () => {
       <Switch>
         <Route exact path={"/home"} component={Home}/>
         <Route exact path={"/projects"} component={Projects}/>
+        <Route exact path={"/projects/:id"} component={Project}/>
         <Route exact path={"/users"} component={Users}/>
         <Route exact path={"/profile"} component={Profile}/>
         {/*<Route exact path={"/login"} component={Login}/>*/}
