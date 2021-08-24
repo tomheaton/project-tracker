@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import { useHistory } from 'react-router-dom';
 
-const Login = ({setUser}) => {
+const LoginPage = ({setUser}) => {
 
   const history = useHistory();
 
@@ -11,11 +11,11 @@ const Login = ({setUser}) => {
   }
 
   return (
-    <div>
+    <div className={"container"}>
       <h1>Login</h1>
       <Button onClick={handleLogin}>Login</Button>
     </div>
   )
 }
 
-export default Login;
+export default LoginPage;

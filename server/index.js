@@ -31,7 +31,7 @@ app.get("/projects", (req, res) => {
       return res.status(500).send({ error: error })
     }
     if (result.length > 0) {
-      return res.status(200).send({ message: `projects -> ${result.length} projects found`, data: result});
+      return res.status(200).send({ message: `projects -> ${result.length} projects found`, projects: result});
     } else {
       return res.status(200).send({ message: "projects -> no projects found" });
     }
@@ -47,7 +47,7 @@ app.get("/projects/:id", (req, res) => {
       return res.status(500).send({ error: error })
     }
     if (result.length > 0) {
-      return res.status(200).send({ message: `projects -> project found with id: ${id}`, data: result});
+      return res.status(200).send({ message: `projects -> project found with id: ${id}`, project: result});
     } else {
       return res.status(200).send({ message: `projects -> no project found with id: ${id}` });
     }
@@ -99,7 +99,7 @@ app.get("/users", (req, res) => {
       return res.status(500).send({ error: error })
     }
     if (result.length > 0) {
-      return res.status(200).send({ message: `users -> ${result.length} users found`, data: result});
+      return res.status(200).send({ message: `users -> ${result.length} users found`, users: result});
     } else {
       return res.status(200).send({ message: "users -> no users found" });
     }
@@ -127,7 +127,7 @@ app.get("/users/:id", (req, res) => {
       return res.status(500).send({ error: error })
     }
     if (result.length > 0) {
-      return res.status(200).send({ message: `users -> user found with id: ${id}`, data: result});
+      return res.status(200).send({ message: `users -> user found with id: ${id}`, user: result});
     } else {
       return res.status(200).send({ message: `users -> no user found with id: ${id}` });
     }

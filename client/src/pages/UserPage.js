@@ -2,13 +2,13 @@ import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 
-const User = () => {
+const UserPage = () => {
 
   const { state } = useLocation();
   const history = useHistory();
 
   return (
-    <div>
+    <div className={"container"}>
       {state && state.username ? (
         <>
           <h1>User: {state["user_id"]}</h1>
@@ -24,4 +24,5 @@ const User = () => {
   )
 }
 
-export default User;
+
+export default UserPage;

@@ -2,7 +2,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 
-const Profile = ({user}) => {
+const ProfilePage = ({user}) => {
 
   const history = useHistory();
 
@@ -17,7 +17,7 @@ const Profile = ({user}) => {
   }
 
   return (
-    <div>
+    <div className={"container"}>
       <h1>Profile</h1>
 
       <Button variant={"danger"} onClick={deleteAccount}>Delete Account</Button>
@@ -25,4 +25,4 @@ const Profile = ({user}) => {
   )
 }
 
-export default Profile;
+export default ProfilePage;

@@ -1,16 +1,15 @@
 import { useState } from "react";
-import './styles/App.css';
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { Container, Navbar, Nav, Button } from "react-bootstrap";
-import Home from "./pages/Home";
-import Projects from "./pages/Projects";
-import Users from "./pages/Users";
-import Signup from "./pages/Signup";
-import Profile from "./pages/Profile";
-import Login from "./pages/Login";
-import Project from "./pages/Project";
+import HomePage from "./pages/HomePage";
+import ProjectsPage from "./pages/ProjectsPage";
+import UsersPage from "./pages/UsersPage";
+import SignupPage from "./pages/SignupPage";
+import ProfilePage from "./pages/ProfilePage";
+import LoginPage from "./pages/LoginPage";
+import ProjectPage from "./pages/ProjectPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-import User from "./pages/User";
+import UserPage from "./pages/UserPage";
 
 const App = () => {
 
@@ -23,45 +22,44 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <Navbar bg="dark" variant="dark" fixed="top">
+        <Container>
+          <Navbar.Brand href="/home">Project Tracker</Navbar.Brand>
+          <Nav className="me-auto">
+            {/*<Link to={"/home"} className={"nav-link"}>HomePage</Link>*/}
+            <Link to={"/projects"} className={"nav-link"}>Projects</Link>
+            <Link to={"/users"} className={"nav-link"}>Users</Link>
+          </Nav>
+          <Nav className="justify-content-end">
+            {user && user.username ? (
+              <>
+                <Navbar.Text>
+                  Signed in as: <a href={"/profile"}>{user.username}</a>
+                </Navbar.Text>
+                <Link onClick={handleLogout} to={"/home"} className={"nav-link"}>Logout</Link>
+              </>
+            ) : (
+              <>
+                <Link to={"/login"} className={"nav-link"}>Login</Link>
+                <Link to={"/signup"} className={"nav-link"}>Signup</Link>
+              </>
+            )}
+          </Nav>
+        </Container>
+      </Navbar>
       <div>
 
-        <Navbar bg="dark" variant="dark">
-          <Container>
-            <Navbar.Brand href="/home">Project Tracker</Navbar.Brand>
-            <Nav className="me-auto">
-              {/*<Link to={"/home"} className={"nav-link"}>Home</Link>*/}
-              <Link to={"/projects"} className={"nav-link"}>Projects</Link>
-              <Link to={"/users"} className={"nav-link"}>Users</Link>
-            </Nav>
-            <Nav className="justify-content-end">
-              {user && user.username ? (
-                <>
-                  <Navbar.Text>
-                    Signed in as: <a href={"/profile"}>{user.username}</a>
-                  </Navbar.Text>
-                  <Link onClick={handleLogout} to={"/home"} className={"nav-link"}>Logout</Link>
-                </>
-              ) : (
-                <>
-                  <Link to={"/login"} className={"nav-link"}>Login</Link>
-                  <Link to={"/signup"} className={"nav-link"}>Signup</Link>
-                </>
-              )}
-            </Nav>
-          </Container>
-        </Navbar>
-
       <Switch>
-        <Route exact path={"/home"} component={Home}/>
-        <Route exact path={"/projects"} component={Projects}/>
-        <Route exact path={"/projects/:id"} component={Project}/>
-        <Route exact path={"/users"} component={Users}/>
-        <Route exact path={"/users/:id"} component={User}/>
+        <Route exact path={"/home"} component={HomePage}/>
+        <Route exact path={"/projects"} component={ProjectsPage}/>
+        <Route exact path={"/projects/:id"} component={ProjectPage}/>
+        <Route exact path={"/users"} component={UsersPage}/>
+        <Route exact path={"/users/:id"} component={UserPage}/>
         <Route exact path={"/login"}>
-          <Login setUser={setUser}/>
+          <LoginPage setUser={setUser}/>
         </Route>
-        <Route exact path={"/signup"} component={Signup}/>
-        <ProtectedRoute user={user} component={Profile}/>
+        <Route exact path={"/signup"} component={SignupPage}/>
+        <ProtectedRoute exact path={"/profile"} user={user} component={ProfilePage}/>
       </Switch>
 
     </div>

@@ -5,6 +5,13 @@ body {
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding-top: 70px;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 code {
@@ -14,17 +21,6 @@ code {
 
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -38,15 +34,10 @@ code {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.project-card {
+  border: solid red 1px;
+  border-radius: 10px;
+  width: 360px;
+  padding: 20px;
+  margin: 10px 0 10px 0;
 }

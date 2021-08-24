@@ -3,7 +3,7 @@ import axios from "axios";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
 
-const Project = () => {
+const ProjectPage = () => {
 
   const { state } = useLocation();
   const history = useHistory();
@@ -33,7 +33,7 @@ const Project = () => {
   }
 
   return (
-    <div>
+    <div className={"container"}>
       {state && state.name ? (
         <>
           <h1>Project: {state["project_id"]}</h1>
@@ -56,4 +56,4 @@ const Project = () => {
   )
 }
 
-export default Project;
+export default ProjectPage;
