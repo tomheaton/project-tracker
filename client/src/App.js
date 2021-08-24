@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
-import {Container, Nav, Navbar} from "react-bootstrap";
+import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import UsersPage from "./pages/UsersPage";
@@ -14,11 +14,9 @@ import BugsPage from "./pages/BugsPage";
 
 const App = () => {
 
-  //const [ user, setUser ] = useLocalStorage("user", {});
   const [ user, setUser ] = useState(null);
 
   const handleLogout = () => {
-    window.localStorage.removeItem("user");
     setUser(null);
     console.log("logging out...");
   }
@@ -71,11 +69,9 @@ const App = () => {
           <Route exact path={"/projects/:id/bugs"} component={BugsPage}/>
           <Route exact path={"/users"} component={UsersPage}/>
           <Route exact path={"/users/:id"} component={UserPage}/>
-          <Route exact path={"/login"}>
-            <LoginPage setUser={setUser}/>
-          </Route>
           <Route exact path={"/signup"} component={SignupPage}/>
-          <ProtectedRoute exact path={"/profile"} user={user} component={ProfilePage}/>
+          <ProtectedRoute exact path={"/login"} redirect={"/profile"} condition={!user} component={() => <LoginPage setUser={setUser}/>}/>
+          <ProtectedRoute exact path={"/profile"} redirect={"/login"} condition={user} component={() => <ProfilePage user={user}/>}/>
         </Switch>
 
       </div>

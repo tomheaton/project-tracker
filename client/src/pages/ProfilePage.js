@@ -7,7 +7,7 @@ const ProfilePage = ({user}) => {
   const history = useHistory();
 
   const deleteAccount = async () => {
-    await axios.delete(`/user/${user.user_id}`).then((result) => {
+    await axios.delete(`/user/${user["user_id"]}`).then((result) => {
       console.log("result: ", result);
     }).catch((error) => {
       console.log("error: ", error);
