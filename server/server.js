@@ -35,7 +35,7 @@ app.post("/login", (req, res) => {
       const user = result[0];
       bcrypt.compare(password, user.password).then((match) => {
         if (match) {
-          return res.status(200).send({message: "login -> passwords match", user: {user_id: user.user_id, username: user.username}});
+          return res.status(200).send({message: "login -> passwords match", user: user});
         } else {
           return res.status(401).send({message: "login -> passwords do not match"});
         }
@@ -172,6 +172,19 @@ app.get("/users/:id", (req, res) => {
     } else {
       return res.status(400).send({ message: `users -> no user found with id: ${id}` });
     }
+  });
+});
+
+app.put("/users/:id", (req, res) => {
+  console.log("PUT -> users/:id");
+  const { id } = req.params;
+  const { bio } = req.body;
+
+  DATABASE.query("UPDATE users SET bio = ?, update_time = NOW() WHERE user_id = ?;", [bio, id], (error, result) => {
+    if (error) {
+      return res.status(500).send({ error: error })
+    }
+    return res.status(200).send({ message: `users -> user updated` });
   });
 });
 
