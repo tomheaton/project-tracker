@@ -1,7 +1,7 @@
 import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Button } from "react-bootstrap";
-import {useState} from "react";
+import { useState } from "react";
 
 const Project = () => {
 
@@ -45,14 +45,13 @@ const Project = () => {
             <Button variant={"danger"} onClick={deleteProject}>Delete</Button>
           </div>
           <br/>
-          <Button onClick={() => history.push("/projects")}>Back to Projects</Button>
         </>
       ) : (
         <>
           <h1>Could not get state from path</h1>
-          <Button onClick={() => history.push("/projects")}>Back to Projects</Button>
         </>
       )}
+      <Button onClick={() => history.push("/projects")}>Back to Projects</Button>
     </div>
   )
 }

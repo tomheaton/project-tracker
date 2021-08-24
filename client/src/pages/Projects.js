@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import ProjectForm from "../components/ProjectForm";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Projects = () => {
 

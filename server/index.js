@@ -108,9 +108,9 @@ app.get("/users", (req, res) => {
 
 app.post("/users", (req, res) => {
   console.log("POST -> users");
-  const { username } = req.body;
+  const { username, password } = req.body;
 
-  DATABASE.query("INSERT INTO users (username) VALUES (?);", [username], (error, result) => {
+  DATABASE.query("INSERT INTO users (username, password) VALUES (?, ?);", [username, password], (error, result) => {
     if (error) {
       return res.status(500).send({ error: error })
     }

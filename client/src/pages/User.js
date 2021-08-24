@@ -9,18 +9,17 @@ const User = () => {
 
   return (
     <div>
-      {state && state.name ? (
+      {state && state.username ? (
         <>
           <h1>User: {state["user_id"]}</h1>
           <h2>Name: {state.username}</h2>
-          <Button onClick={() => history.push("/users")}>Back to Users</Button>
         </>
       ) : (
         <>
           <h1>Could not get state from path</h1>
-          <Button onClick={() => history.push("/users")}>Back to Users</Button>
         </>
       )}
+      <Button onClick={() => history.push("/users")}>Back to Users</Button>
     </div>
   )
 }

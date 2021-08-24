@@ -5,11 +5,12 @@ import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Users from "./pages/Users";
-import SignUp from "./pages/SignUp";
+import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Project from "./pages/Project";
 import ProtectedRoute from "./components/ProtectedRoute";
+import User from "./pages/User";
 
 const App = () => {
 
@@ -55,10 +56,11 @@ const App = () => {
         <Route exact path={"/projects"} component={Projects}/>
         <Route exact path={"/projects/:id"} component={Project}/>
         <Route exact path={"/users"} component={Users}/>
+        <Route exact path={"/users/:id"} component={User}/>
         <Route exact path={"/login"}>
           <Login setUser={setUser}/>
         </Route>
-        <Route exact path={"/signup"} component={SignUp}/>
+        <Route exact path={"/signup"} component={Signup}/>
         <ProtectedRoute user={user} component={Profile}/>
       </Switch>
 
