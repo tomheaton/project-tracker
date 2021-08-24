@@ -6,7 +6,7 @@ const Login = ({setUser}) => {
   const history = useHistory();
 
   const handleLogin = () => {
-    setUser(true);
+    setUser({user_id: 1, username: "tomheaton"});
     history.push("/profile");
   }
 

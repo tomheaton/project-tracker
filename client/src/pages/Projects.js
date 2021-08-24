@@ -40,16 +40,19 @@ const Projects = () => {
       <br/>
 
       <div>
-        <ul>
-          {data.map((project) => {
-            /*return (<li key={project["project_id"]}>{project.name}</li>)*/
-            return (
-              <li key={project["project_id"]}>
-                <Link to={{pathname: `/projects/${project["project_id"]}`, state: project}} className={"nav-link"}>{project.name}</Link>
-              </li>
-            )
-          })}
-        </ul>
+        {data && data.length > 0 ? (
+            <ul>
+              {data.map((project) => {
+                return (
+                  <li key={project["project_id"]}>
+                    <Link to={{pathname: `/projects/${project["project_id"]}`, state: project}} className={"nav-link"}>{project.name}</Link>
+                  </li>
+                )
+              })}
+            </ul>
+          ) :
+          (<h2>No Projects found.</h2>)
+        }
       </div>
 
     </div>

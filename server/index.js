@@ -21,7 +21,7 @@ const DATABASE = mysql.createConnection({
 app.get("/", (req, res) => {
   console.log("GET -> hello world");
   res.send({ message: "hello world" });
-})
+});
 
 app.get("/projects", (req, res) => {
   console.log("GET -> projects");
@@ -36,7 +36,7 @@ app.get("/projects", (req, res) => {
       return res.status(200).send({ message: "projects -> no projects found" });
     }
   });
-})
+});
 
 app.get("/projects/:id", (req, res) => {
   console.log("GET -> projects/:id");
@@ -52,7 +52,7 @@ app.get("/projects/:id", (req, res) => {
       return res.status(200).send({ message: `projects -> no project found with id: ${id}` });
     }
   });
-})
+});
 
 app.post("/projects", (req, res) => {
   console.log("POST -> projects");
@@ -64,7 +64,7 @@ app.post("/projects", (req, res) => {
     }
     return res.status(200).send({ message: `projects -> project created` });
   });
-})
+});
 
 app.put("/projects/:id", (req, res) => {
   console.log("PUT -> projects/:id");
@@ -77,7 +77,7 @@ app.put("/projects/:id", (req, res) => {
     }
     return res.status(200).send({ message: `projects -> project updated` });
   });
-})
+});
 
 app.delete("/projects/:id", (req, res) => {
   console.log("DELETE -> projects/:id");
@@ -89,7 +89,62 @@ app.delete("/projects/:id", (req, res) => {
     }
     return res.status(200).send({ message: `projects -> project deleted` });
   });
-})
+});
+
+app.get("/users", (req, res) => {
+  console.log("GET -> users");
+
+  DATABASE.query("SELECT * FROM users;", [], (error, result) => {
+    if (error) {
+      return res.status(500).send({ error: error })
+    }
+    if (result.length > 0) {
+      return res.status(200).send({ message: `users -> ${result.length} users found`, data: result});
+    } else {
+      return res.status(200).send({ message: "users -> no users found" });
+    }
+  });
+});
+
+app.post("/users", (req, res) => {
+  console.log("POST -> users");
+  const { username } = req.body;
+
+  DATABASE.query("INSERT INTO users (username) VALUES (?);", [username], (error, result) => {
+    if (error) {
+      return res.status(500).send({ error: error })
+    }
+    return res.status(200).send({ message: `users -> user created` });
+  });
+});
+
+app.get("/users/:id", (req, res) => {
+  console.log("GET -> users/:id");
+  const { id } = req.params;
+
+  DATABASE.query("SELECT * FROM users WHERE user_id = ?;", [id], (error, result) => {
+    if (error) {
+      return res.status(500).send({ error: error })
+    }
+    if (result.length > 0) {
+      return res.status(200).send({ message: `users -> user found with id: ${id}`, data: result});
+    } else {
+      return res.status(200).send({ message: `users -> no user found with id: ${id}` });
+    }
+  });
+});
+
+app.delete("/users/:id", (req, res) => {
+  console.log("DELETE -> users/:id");
+  const { id } = req.params;
+
+  DATABASE.query("DELETE FROM users WHERE user_id = ?;", [id], (error, result) => {
+    if (error) {
+      return res.status(500).send({ error: error })
+    }
+    return res.status(200).send({ message: `users -> user deleted` });
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}.\n`)

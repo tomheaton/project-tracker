@@ -13,7 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
 
-  const [ user, setUser ] = useState(false);
+  const [ user, setUser ] = useState({});
 
   const handleLogout = () => {
     setUser(false)
@@ -33,17 +33,17 @@ const App = () => {
               <Link to={"/users"} className={"nav-link"}>Users</Link>
             </Nav>
             <Nav className="justify-content-end">
-              {!user ? (
+              {user && user.username ? (
                 <>
-                  <Link to={"/login"} className={"nav-link"}>Login</Link>
-                  <Link to={"/signup"} className={"nav-link"}>Signup</Link>
+                  <Navbar.Text>
+                    Signed in as: <a href={"/profile"}>{user.username}</a>
+                  </Navbar.Text>
+                  <Link onClick={handleLogout} to={"/home"} className={"nav-link"}>Logout</Link>
                 </>
               ) : (
                 <>
-                  <Navbar.Text>
-                    Signed in as: <a href={"/profile"}>Tom Heaton</a>
-                  </Navbar.Text>
-                  <Link onClick={handleLogout} to={"/home"} className={"nav-link"}>Logout</Link>
+                  <Link to={"/login"} className={"nav-link"}>Login</Link>
+                  <Link to={"/signup"} className={"nav-link"}>Signup</Link>
                 </>
               )}
             </Nav>
