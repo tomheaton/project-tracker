@@ -41,3 +41,11 @@ code {
   padding: 20px;
   margin: 10px 0 10px 0;
 }
+
+.user-card {
+  border: solid red 1px;
+  border-radius: 10px;
+  width: 360px;
+  padding: 20px;
+  margin: 10px 0 10px 0;
+}

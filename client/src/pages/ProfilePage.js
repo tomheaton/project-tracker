@@ -1,6 +1,6 @@
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import axios from "axios";
-import { Button } from "react-bootstrap";
+import {Button} from "react-bootstrap";
 
 const ProfilePage = ({user}) => {
 

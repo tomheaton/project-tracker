@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Button, Spinner } from "react-bootstrap";
+import {useEffect, useState} from "react";
+import {Button, Spinner} from "react-bootstrap";
 import ProjectForm from "../components/ProjectForm";
 import ProjectCard from "../components/ProjectCard";
+
 
 const ProjectsPage = () => {
 
@@ -35,9 +36,7 @@ const ProjectsPage = () => {
       return (
         <ul>
           {data.map((project) => {
-            return (
-              <ProjectCard project={project}/>
-            )
+            return (<ProjectCard key={project["project_id"]} project={project}/>);
           })}
         </ul>
       );

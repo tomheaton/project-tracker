@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Spinner } from "react-bootstrap";
+import {useEffect, useState} from "react";
+import {Spinner} from "react-bootstrap";
+import UserCard from "../components/UserCard";
 
 const UsersPage = () => {
 
@@ -33,11 +33,7 @@ const UsersPage = () => {
       return (
         <ul>
           {data.map((user) => {
-            return (
-              <li key={user["user_id"]}>
-                <Link to={{pathname: `/users/${user["user_id"]}`, state: user}} className={"nav-link"}>{user.username}</Link>
-              </li>
-            )
+            return (<UserCard key={user["user_id"]} user={user}/>);
           })}
         </ul>
       );

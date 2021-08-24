@@ -1,7 +1,7 @@
-import { useHistory, useLocation } from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import axios from "axios";
-import { Button } from "react-bootstrap";
-import { useState } from "react";
+import {Button, Tab, Tabs} from "react-bootstrap";
+import {useState} from "react";
 
 const ProjectPage = () => {
 
@@ -40,6 +40,9 @@ const ProjectPage = () => {
           <h2>Name: {state.name}</h2>
           <br/>
           <div>
+            <Link to={{pathname: `/projects/${state["project_id"]}/bugs`, state: state}}>
+              <Button>Bugs</Button>
+            </Link>
             <Button onClick={renameProject}>Rename</Button>
             <input onChange={(e) => setName(e.target.value)} placeholder={"enter new name"}/>
             <Button variant={"danger"} onClick={deleteProject}>Delete</Button>
@@ -52,6 +55,18 @@ const ProjectPage = () => {
         </>
       )}
       <Button onClick={() => history.push("/projects")}>Back to Projects</Button>
+
+      <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
+        <Tab eventKey="home" title="Home">
+          <p>one</p>
+        </Tab>
+        <Tab eventKey="profile" title="Profile">
+          <p>two</p>
+        </Tab>
+        <Tab eventKey="contact" title="Contact">
+          <p>three</p>
+        </Tab>
+      </Tabs>
     </div>
   )
 }

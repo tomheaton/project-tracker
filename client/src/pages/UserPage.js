@@ -1,6 +1,5 @@
-import { useHistory, useLocation } from "react-router-dom";
-import axios from "axios";
-import { Button } from "react-bootstrap";
+import {useHistory, useLocation} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 const UserPage = () => {
 
@@ -11,8 +10,8 @@ const UserPage = () => {
     <div className={"container"}>
       {state && state.username ? (
         <>
-          <h1>User: {state["user_id"]}</h1>
-          <h2>Name: {state.username}</h2>
+          <h1>User ID: {state["user_id"]}</h1>
+          <h2>Username: {state.username}</h2>
         </>
       ) : (
         <>
