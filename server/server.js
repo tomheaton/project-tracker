@@ -23,6 +23,47 @@ app.get("/", (req, res) => {
   res.send({ message: "hello world" });
 });
 
+app.post("/login", (req, res) => {
+  console.log("GET -> login");
+  const { username, password } = req.body;
+
+  DATABASE.query("SELECT user_id, username, password FROM users WHERE username = ?;", [username], (error, result) => {
+    if (error) {
+      return res.status(500).send({error: error});
+    }
+    if (result.length > 0) {
+      const user = result[0];
+      bcrypt.compare(password, user.password).then((match) => {
+        if (match) {
+          return res.status(200).send({message: "login -> passwords match", user: {user_id: user.user_id, username: user.username}});
+        } else {
+          return res.status(401).send({message: "login -> passwords do not match"});
+        }
+      }).catch((error) => {
+        return res.status(500).send({error: error});
+      });
+    } else {
+      return res.status(401).send({message: `login -> no results found for username ${username}`});
+    }
+  });
+});
+
+app.post("/signup", (req, res) => {
+  console.log("GET -> signup");
+  const { username, password } = req.body;
+
+  bcrypt.hash(password, parseInt(process.env.SALT_ROUNDS)).then((hash) => {
+    DATABASE.query("INSERT INTO users (username, password) VALUES (?, ?);", [username, hash], (error, result) => {
+      if (error) {
+        return res.status(500).send({error: error});
+      }
+      return res.status(200).send({message: "signup -> user registered"});
+    });
+  }).catch((error) => {
+    return res.status(500).send({error: error});
+  });
+});
+
 app.get("/projects", (req, res) => {
   console.log("GET -> projects");
 
@@ -33,7 +74,7 @@ app.get("/projects", (req, res) => {
     if (result.length > 0) {
       return res.status(200).send({ message: `projects -> ${result.length} projects found`, projects: result});
     } else {
-      return res.status(200).send({ message: "projects -> no projects found" });
+      return res.status(400).send({ message: "projects -> no projects found" });
     }
   });
 });
@@ -49,7 +90,7 @@ app.get("/projects/:id", (req, res) => {
     if (result.length > 0) {
       return res.status(200).send({ message: `projects -> project found with id: ${id}`, project: result});
     } else {
-      return res.status(200).send({ message: `projects -> no project found with id: ${id}` });
+      return res.status(400).send({ message: `projects -> no project found with id: ${id}` });
     }
   });
 });
@@ -101,7 +142,7 @@ app.get("/users", (req, res) => {
     if (result.length > 0) {
       return res.status(200).send({ message: `users -> ${result.length} users found`, users: result});
     } else {
-      return res.status(200).send({ message: "users -> no users found" });
+      return res.status(400).send({ message: "users -> no users found" });
     }
   });
 });
@@ -129,7 +170,7 @@ app.get("/users/:id", (req, res) => {
     if (result.length > 0) {
       return res.status(200).send({ message: `users -> user found with id: ${id}`, user: result});
     } else {
-      return res.status(200).send({ message: `users -> no user found with id: ${id}` });
+      return res.status(400).send({ message: `users -> no user found with id: ${id}` });
     }
   });
 });
