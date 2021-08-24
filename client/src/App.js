@@ -69,7 +69,6 @@ const App = () => {
           <Route exact path={"/projects/:id/bugs"} component={BugsPage}/>
           <Route exact path={"/users"} component={UsersPage}/>
           <Route exact path={"/users/:id"} component={UserPage}/>
-          {/*<Route exact path={"/signup"} component={() => <SignupPage setUser={setUser}/>}/>*/}
           <ProtectedRoute exact path={"/signup"} redirect={"/profile"} condition={!user} component={() => <SignupPage setUser={setUser}/>}/>
           <ProtectedRoute exact path={"/login"} redirect={"/profile"} condition={!user} component={() => <LoginPage setUser={setUser}/>}/>
           <ProtectedRoute exact path={"/profile"} redirect={"/login"} condition={user} component={() => <ProfilePage setUser={setUser} user={user}/>}/>
