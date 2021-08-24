@@ -9,10 +9,11 @@ import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Project from "./pages/Project";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
 
-  const [ user, setUser ] = useState(true);
+  const [ user, setUser ] = useState(false);
 
   const handleLogout = () => {
     setUser(false)
@@ -54,12 +55,11 @@ const App = () => {
         <Route exact path={"/projects"} component={Projects}/>
         <Route exact path={"/projects/:id"} component={Project}/>
         <Route exact path={"/users"} component={Users}/>
-        <Route exact path={"/profile"} component={Profile}/>
-        {/*<Route exact path={"/login"} component={Login}/>*/}
         <Route exact path={"/login"}>
           <Login setUser={setUser}/>
         </Route>
         <Route exact path={"/signup"} component={SignUp}/>
+        <ProtectedRoute user={user} component={Profile}/>
       </Switch>
 
     </div>
