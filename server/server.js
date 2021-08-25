@@ -27,7 +27,7 @@ app.post("/login", (req, res) => {
   console.log("GET -> login");
   const { username, password } = req.body;
 
-  DATABASE.query("SELECT user_id, username, password FROM users WHERE username = ?;", [username], (error, result) => {
+  DATABASE.query("SELECT * FROM users WHERE username = ?;", [username], (error, result) => {
     if (error) {
       return res.status(500).send({error: error});
     }
@@ -97,9 +97,9 @@ app.get("/projects/:id", (req, res) => {
 
 app.post("/projects", (req, res) => {
   console.log("POST -> projects");
-  const { name } = req.body;
+  const { name, owner_id } = req.body;
 
-  DATABASE.query("INSERT INTO projects (name) VALUES (?);", [name], (error, result) => {
+  DATABASE.query("INSERT INTO projects (name, owner_id) VALUES (?, ?);", [name, owner_id], (error, result) => {
     if (error) {
       return res.status(500).send({ error: error })
     }
@@ -168,7 +168,7 @@ app.get("/users/:id", (req, res) => {
       return res.status(500).send({ error: error })
     }
     if (result.length > 0) {
-      return res.status(200).send({ message: `users -> user found with id: ${id}`, user: result});
+      return res.status(200).send({ message: `users -> user found with id: ${id}`, user: result[0]});
     } else {
       return res.status(400).send({ message: `users -> no user found with id: ${id}` });
     }

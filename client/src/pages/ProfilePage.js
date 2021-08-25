@@ -6,7 +6,7 @@ import { useState } from "react";
 const ProfilePage = ({user, setUser}) => {
 
   const history = useHistory();
-  const [bio, setBio] = useState("");
+  const [bio, setBio] = useState(user.bio);
 
   const deleteAccount = async () => {
     await axios.delete(`/users/${user["user_id"]}`).then((result) => {
@@ -25,6 +25,18 @@ const ProfilePage = ({user, setUser}) => {
     }).catch((error) => {
       console.log("error: ", error);
     }).finally(() => {
+      handleUserUpdate();
+    });
+  }
+
+  const handleUserUpdate = async () => {
+    await axios.get(`/users/${user["user_id"]}`).then((result) => {
+      console.log("result: ", result);
+      setUser(result.data.user)
+    }).catch((error) => {
+      console.log("error: ", error);
+    }).finally(() => {
+      history.push("/profile");
     });
   }
 
@@ -37,9 +49,9 @@ const ProfilePage = ({user, setUser}) => {
       <div>
         <Form>
           <FloatingLabel controlId="bio" label="Bio" className="mb-3">
-            <Form.Control as="textarea" placeholder="Create a bio here." maxLength={255} onChange={(e) => setBio(e.target.value)}/>
+            <Form.Control defaultValue={user.bio} as="textarea" placeholder="Create a bio here." maxLength={255} onChange={(e) => setBio(e.target.value)}/>
           </FloatingLabel>
-          <Button onClick={updateSettings}>Save</Button>
+          {(user.bio !== bio) && <Button onClick={updateSettings}>Save</Button>}
         </Form>
       </div>
       <br/>

@@ -11,7 +11,6 @@ const LoginPage = ({setUser}) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    //setUser({user_id: 1, username: "tomheaton"});
     await axios.post("/login", {username: username, password: password}).then((result) => {
       console.log("result: ", result);
       setUser(result.data.user)

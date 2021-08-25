@@ -5,7 +5,7 @@ import ProjectForm from "../components/ProjectForm";
 import ProjectCard from "../components/ProjectCard";
 
 
-const ProjectsPage = () => {
+const ProjectsPage = ({user}) => {
 
   const getProjects = async () => {
     await axios.get("/projects").then((result) => {
@@ -36,7 +36,7 @@ const ProjectsPage = () => {
       return (
         <ul>
           {data.map((project) => {
-            return (<ProjectCard key={project["project_id"]} project={project}/>);
+            return (<ProjectCard key={project["project_id"]} project={project} user={user}/>);
           })}
         </ul>
       );
@@ -48,9 +48,11 @@ const ProjectsPage = () => {
       <h1>Projects</h1>
       <br/>
       <div>
-        <h2>Create a project.</h2>
-        {!showForm && <Button onClick={() => setShowForm(!showForm)}>Create</Button>}
-        {showForm && <ProjectForm setShowForm={setShowForm}/>}
+        { user && <>
+          <h2>Create a project.</h2>
+          {!showForm && <Button onClick={() => setShowForm(!showForm)}>Create</Button>}
+          {showForm && <ProjectForm setShowForm={setShowForm} user={user}/>}
+        </>}
       </div>
       <br/>
       <div>

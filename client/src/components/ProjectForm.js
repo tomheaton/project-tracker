@@ -2,14 +2,14 @@ import {useState} from "react";
 import {Button, Form, FormGroup} from "react-bootstrap";
 import axios from "axios";
 
-const ProjectForm = ({setShowForm}) => {
+const ProjectForm = ({setShowForm, user}) => {
 
   const [name, setName] = useState("");
 
   const handleSubmit = async (e) => {
       e.preventDefault();
       console.log("submitting form");
-      await axios.post("/projects", {"name": name}).then((result) => {
+      await axios.post("/projects", {"name": name, "owner_id": user["user_id"]}).then((result) => {
         console.log("result: ", result);
       }).catch((error) => {
         console.log("error", error);
