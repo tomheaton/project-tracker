@@ -4,7 +4,6 @@ import {Button, Spinner} from "react-bootstrap";
 import ProjectForm from "../components/ProjectForm";
 import ProjectCard from "../components/ProjectCard";
 
-
 const ProjectsPage = ({user}) => {
 
   const getProjects = async () => {

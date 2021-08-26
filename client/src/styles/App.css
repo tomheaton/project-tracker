@@ -49,3 +49,14 @@ code {
   padding: 20px;
   margin: 10px 0 10px 0;
 }
+
+.bug-card {
+  border-radius: 10px;
+  width: 360px;
+  padding: 20px;
+  margin: 10px 0 10px 0;
+}
+.bug-card:hover {
+  transform: scale(1.01);
+}
+
