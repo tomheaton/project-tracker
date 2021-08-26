@@ -9,40 +9,52 @@ const BugsPage = () => {
   const dragItem = useRef();
   const dragOverItem = useRef();
   const [showForm, setShowForm] = useState(false);
+
   const [bugsList, setBugsList] = useState([
     {name: "alpha", completed: false}, {name: "beta", completed: false},
     {name: "gamma", completed: true}, {name: "delta", completed: true}
   ]);
 
-  const handleDragStart = (e, index, name) => {
+  const handleDragStart = (e, index) => {
     dragItem.current = index;
-    console.log(e.target.outerHTML.includes('completed="false"'));
-    /*    e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.effectAllowed = "move";
         e.dataTransfer.setData("text/html", e.target.parentNode);
-        e.dataTransfer.setDragImage(e.target.parentNode, 20, 20);*/
+        e.dataTransfer.setDragImage(e.target.parentNode, 20, 20);
   }
 
-  const handleDragOver = (e, index, name) => {
+  const handleDragOver = (e, index) => {
     e.preventDefault();
-    /*if (dragItem.current === dragOverItem.current) {
-      return;
+    dragOverItem.current = index;
+    console.log("dragOverItem index: ", index)
+
+    if (bugsList[dragOverItem.current].completed !== undefined) {
+      const listCopy = [...bugsList];
+      const dragItemContent = listCopy[dragItem.current];
+
+      dragItemContent.completed = bugsList[dragOverItem.current].completed
+
+      listCopy.splice(dragItem.current, 1);
+      listCopy.splice(dragOverItem.current, 0, dragItemContent);
+
+      dragItem.current = dragOverItem.current;
+      setBugsList(listCopy);
     }
-    let listCopy = bugsList.filter((item, index) => index !== dragItem.current);
-    listCopy.splice(index, 0, dragItem.current);*/
-
-    const listCopy = [...bugsList];
-    const draggingItemContent = listCopy[dragItem.current];
-    listCopy.splice(dragItem.current, 1);
-    listCopy.splice(dragOverItem.current, 0, draggingItemContent);
-
-    dragItem.current = dragOverItem.current;
-
-    setBugsList(listCopy);
   }
 
-  const handleDragEnd = (e, index, name) => {
+  const handleDragEnd = (e, index) => {
     dragItem.current = null;
     dragOverItem.current = null;
+  }
+
+  const handleComplete = (e, index) => {
+    //e.preventDefault();
+    const listCopy = bugsList;
+    listCopy[index].completed = true;
+    setBugsList(listCopy)
+  }
+
+  const handleEdit = (e, index) => {
+    console.log("bug edit");
   }
 
   return (
@@ -62,16 +74,19 @@ const BugsPage = () => {
           <h4>List: {JSON.stringify(bugsList)}</h4>
           <Col>
             <h3>In Progress</h3>
-            <ul id={"inProgressList"}>
-              {bugsList.filter((element) => element.completed === false).map((element, index) => {
-                return (
+            <ul id={"inProgressBugsList"}>
+              {/*{bugsList && bugsList.filter((element) => element.completed === false).map((element, index) => {*/}
+              {bugsList && bugsList.map((element, index) => {
+                if (element.completed === false) return (
                   <li key={element.name}>
-                    <Card className={"bug-card"} draggable key={element.name} completed={"false"}
+                    <Card className={"bug-card"} draggable key={element.name}
                           onDragStart={(e) => handleDragStart(e, index)}
                           onDragOver={(e) => handleDragOver(e, index)}
                           onDragEnd={(e) => handleDragEnd(e, index)}
                     >
                       <Card.Body>{element.name}</Card.Body>
+                      <Button variant={"secondary"} onClick={(e) => handleComplete(e, index)}>Complete</Button>
+                      <Button variant={"secondary"} onClick={(e) => handleEdit(e, index)}>Edit</Button>
                     </Card>
                   </li>
                 );
@@ -80,11 +95,12 @@ const BugsPage = () => {
           </Col>
           <Col>
             <h3>Completed</h3>
-            <ul id={"completedList"}>
-              {bugsList.filter((element) => element.completed === true).map((element, index) => {
-                return (
+            <ul id={"completedBugsList"}>
+              {/*{bugsList && bugsList.filter((element) => element.completed === true).map((element, index) => {*/}
+              {bugsList && bugsList.map((element, index) => {
+                if (element.completed === true) return (
                   <li key={element.name}>
-                    <Card className={"bug-card"} draggable key={element.name} completed={"true"}
+                    <Card className={"bug-card"} draggable key={element.name}
                           onDragStart={(e) => handleDragStart(e, index)}
                           onDragOver={(e) => handleDragOver(e, index)}
                           onDragEnd={(e) => handleDragEnd(e, index)}

@@ -60,3 +60,11 @@ code {
   transform: scale(1.01);
 }
 
+#inProgressBugsList {
+  border: solid red 1px;
+}
+
+#completedBugsList {
+  border: solid red 1px;
+}
+
