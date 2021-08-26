@@ -8,7 +8,7 @@ const ProjectCard = ({project, user}) => {
         <h2>{project.name}</h2>
         <p>{project.description || "no description found"}</p>
         {/*TODO: fix this user link*/}
-        <Link to={{pathname: `/users/${project["owner_id"]}`, state: user}} className={"nav-link"}>
+        <Link to={{pathname: `/users/${project["owner_id"]}`, state: project["owner_id"]}} className={"nav-link"}>
           {project["owner_id"] || "project not owned by anyone"}
         </Link>
       </Link>
