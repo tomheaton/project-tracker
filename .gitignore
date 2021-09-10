@@ -12,6 +12,7 @@ client/coverage
 # production
 client-react/build
 client/build
+server-graphql/dist
 
 # misc
 .DS_Store
