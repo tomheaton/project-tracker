@@ -68,7 +68,7 @@ const Home: NextPage = () => {
                 </a>
             </footer>
         </div>
-    )
+    );
 }
 
 export default Home;

@@ -5,8 +5,7 @@ type Data = {
 }
 
 const handler = (req: NextApiRequest, res: NextApiResponse<Data>) => {
-    console.log("logged out");
-    res.status(200).json({name: 'John Doe'});
+    res.status(200).json({name: 'Tom Heaton'});
 }
 
 export default handler;
