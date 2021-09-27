@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import {useState} from "react";
+import TestComponent from "../components/TestComponent";
 
 const Home: NextPage = () => {
 
@@ -17,11 +18,13 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 
+            <TestComponent/>
+
             <main className={styles.main}>
                 <h1 className={styles.title}> Welcome to the Project Tracker</h1>
 
                 <div className={styles.grid}>
-                    <Link href="/users">
+                    <Link href="/users" >
                         <div className={styles.card}>
                             <h2>Users &rarr;</h2>
                             <p>View all users.</p>
