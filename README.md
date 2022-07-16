@@ -1,12 +1,14 @@
 # project-tracker
-A tracking app to manage your projects. Includes issue and bug tracking.
 
-| Directory | Description |
-| --- | --- |
-| [`client-react`](https://github.com/tomheaton/project-tracker/tree/main/client-react) | React frontend (abandoned) |
-| [`client`](https://github.com/tomheaton/project-tracker/tree/main/client) | Next.js frontend |
-| [`server-graphql`](https://github.com/tomheaton/project-tracker/tree/main/server-graphql) | Node.js backend + GraphQL |
-| [`server`](https://github.com/tomheaton/project-tracker/tree/main/server) | Node.js backend |
-| [`extra`](https://github.com/tomheaton/project-tracker/tree/main/extra) | *bonus code* |
+A project tracking app to manage your projects. Includes issue and bug tracking.
 
-Note: This project is still in progress. 
+## project structure
+
+| Directory            | Description                |
+|----------------------|----------------------------|
+| [`client`](./client) | Next.js frontend           |
+| [`server`](./server) | Node.js backend            |
+
+## guest login
+
+The guest login to the live site is: username `project`, password `tracker`
