@@ -6,7 +6,7 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
-                    <title>Project Tracker</title>
+                    {/*<title>Project Tracker</title>*/}
                 </Head>
                 <body>
                     <Main/>
