@@ -1,11 +1,11 @@
 import {NextPage} from "next";
 
-const Users: NextPage = () => {
+const User: NextPage = () => {
     return (
         <div>
-            users
+            user
         </div>
     );
 }
 
-export default Users;
+export default User;
