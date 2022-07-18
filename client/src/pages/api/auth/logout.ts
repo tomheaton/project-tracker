@@ -1,11 +1,13 @@
-import {NextApiRequest, NextApiResponse} from 'next';
+import {NextApiHandler, NextApiRequest, NextApiResponse} from 'next';
 
 type Data = {
-    name: string
+    data?: any
+    message: string
+    success: boolean
 }
 
-const handler = (req: NextApiRequest, res: NextApiResponse<Data>) => {
-    res.status(200).json({name: 'Tom Heaton'});
+const handler: NextApiHandler = (req: NextApiRequest, res: NextApiResponse<Data>) => {
+    res.status(200).json({message: "logout", success: false});
 }
 
 export default handler;
